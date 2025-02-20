@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog
+    xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-latest.xsd
+                        http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+    <!--
+        Added the constraints for entity TeamProfile.
+    -->
+    <changeSet id="20250211141120-2" author="jhipster">
+
+        <addForeignKeyConstraint baseColumnNames="team_profile_id"
+                                 baseTableName="rel_team_profile__image_gallery"
+                                 constraintName="fk_rel_team_profile__image_gallery__team_profile_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="team_profile"
+                                 />
+
+        <addForeignKeyConstraint baseColumnNames="image_gallery_id"
+                                 baseTableName="rel_team_profile__image_gallery"
+                                 constraintName="fk_rel_team_profile__image_gallery__image_gallery_id"
+                                 referencedColumnNames="id"
+                                 referencedTableName="screenshot"
+                                 />
+    </changeSet>
+</databaseChangeLog>

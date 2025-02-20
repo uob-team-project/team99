@@ -1,0 +1,62 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (screenshot(); as screenshotRef) {
+      <div>
+        <h2 data-cy="screenshotDetailsHeading"><span>Screenshot</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span>ID</span></dt>
+          <dd>
+            <span>{{ screenshotRef.id }}</span>
+          </dd>
+          <dt><span>Pic</span></dt>
+          <dd>
+            @if (screenshotRef.pic) {
+              <div>
+                <a (click)="openFile(screenshotRef.pic ?? '', screenshotRef.picContentType)">
+                  <img
+                    [src]="'data:' + screenshotRef.picContentType + ';base64,' + screenshotRef.pic"
+                    style="max-width: 100%"
+                    alt="screenshot"
+                  />
+                </a>
+                {{ screenshotRef.picContentType }}, {{ byteSize(screenshotRef.pic ?? '') }}
+              </div>
+            }
+          </dd>
+          <dt><span>Caption</span></dt>
+          <dd>
+            <span>{{ screenshotRef.caption }}</span>
+          </dd>
+          <dt><span>Milestone</span></dt>
+          <dd>
+            <span>{{ { null: '', M1: 'milestoneOne', M2: 'milestoneTwo', M3: 'milestoneThree' }[screenshotRef.milestone ?? 'null'] }}</span>
+          </dd>
+          <dt><span>Team Profile</span></dt>
+          <dd>
+            @for (teamProfile of screenshotRef.teamProfiles; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/team-profile', teamProfile.id, 'view']">{{ teamProfile?.id }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/screenshot', screenshotRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

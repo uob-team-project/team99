@@ -1,0 +1,69 @@
+from task.pdf
+
+
+S2
+
+	
+
+Submission 2
+
+	
+
+individual
+
+	
+
+For the entity* owned by individual:
+• Entity relationships (JDL)
+• Entity constraints (natural language)
+• Entity complete Kanban cards
+• ≥1 complete frontend entity feature (or page)
+• unassessed: time sheets
+
+* entity can from S1 entity as long as new entity is of similar complexity and the change agreement from the team
+
+	
+
+week 6
+
+Each team member must submit:
+
+• Entity relationships (JDL) 
+
+Submit the Entities, Attributes, Enums and Relations you need for only your own, main full stack entity. You should minimise overlap with other team mates' entities and JDL. You can use mock Entities if you want to reference other team mates' Entities, Attributes, Enums and Relations if these are not finalised.
+
+This should submitted as JDL txt file and UML Class Diagram. Even if you are using the given stack, include the JDL markup (text). The aim will be to combine these into a coherent JDL to generate the MVP in M2 as a team.
+
+Include the required/min/max constraints and @annotations (dtos, service layers etc) on entities.
+
+These should be your close-to-finalised entity that you will use for the development of your apps.
+
+• Entity constraints (natural language) 
+
+For your entity add a list of contstraints in human readable form. A example of constraints if you are responsible for the TeamProfile entity: "Only admin users can delete the TeamProfile" or "Only the admin user or a UserProfile that is TeamMember of the TeamProfile can edit the TeamProfile" or "A UserProfile that is TeamMember of the TeamProfile cannot vote for that TeamProfile".
+
+
+There is no minium of maximum number of constraints - we would suggest a minimum of 5 constraints at this point- however the team can set a minimum number for these constraints in the ranking criteria for M2 ranking. During the M3 ranking the team can use the number of constraints that have been successsfully implemented to rank individuals. More constraints can be added during S3/M3 iterative development.
+
+• Entity complete Kanban cards 
+
+Include the Kanban cards that will plan the implementation of your main entity.
+
+• Time sheets (unassessed)
+
+The timesheets that show how much time you have spent on the above work. We will only use these if there are conflicts about contribution.
+
+This submission will be a single PDF document that covers most of the points + the JDL file + the timesheet xlsx file.
+
+
+Important notes:
+
+This submission must be your own work, you cannot submit any work done by any other team member. Plagiarism and any other fairness concerns can be reported to the module leader, or anonymously to the welfare team and will be dealt via university policy.
+In Milestone 2 the team will decide the ranking of individual work submitted in Submission 2. The team will be able to report non-contributions or low-contributions, and we will investigate these. The team will decide the ranking criteria and this document gives some guidance of what is acceptable criteria the team might use
+
+After submission, you must share your individual work with your team. You can upload your work to the Files section of your team on Canvas, or use any other university provided means (e.g. OneDrive, git), so your team has access to everyone's contribution. You can share the source files/documents used to create your submission the same way.
+Individual contribution to team work affects everyone in your team. Not submitting to Submission 2 (without a welfare referral) will result in a referral directly to the engagement team. This can result in a formal letter and invitation to a meeting with head of education.
+
+Remember to click submit after upload. Check the submission has uploaded and is readable in Canvas before the deadline passes.
+
+

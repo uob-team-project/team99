@@ -1,0 +1,57 @@
+{
+  "annotations": {
+    "changelogDate": "20250211141120"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "teamID",
+      "fieldType": "Integer",
+      "fieldValidateRules": ["required", "min"],
+      "fieldValidateRulesMin": "0"
+    },
+    {
+      "fieldName": "appLink",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "appDescription",
+      "fieldType": "TextBlob"
+    },
+    {
+      "fieldName": "logoPic",
+      "fieldType": "ImageBlob"
+    },
+    {
+      "fieldName": "nickName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "slogan",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "votes",
+      "fieldType": "Integer"
+    }
+  ],
+  "name": "TeamProfile",
+  "relationships": [
+    {
+      "otherEntityField": "caption",
+      "otherEntityName": "screenshot",
+      "relationshipName": "imageGallery",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    },
+    {
+      "otherEntityField": "uobUsername",
+      "otherEntityName": "userProfile",
+      "otherEntityRelationshipName": "team",
+      "relationshipName": "member",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}

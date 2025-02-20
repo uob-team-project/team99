@@ -1,0 +1,151 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-team-profile-heading" data-cy="TeamProfileCreateUpdateHeading">Create or edit a Team Profile</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let teamIDRef = editForm.get('teamID')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_teamID">Team ID</label>
+          <input type="number" class="form-control" name="teamID" id="field_teamID" data-cy="teamID" formControlName="teamID" />
+          @if (teamIDRef.invalid && (teamIDRef.dirty || teamIDRef.touched)) {
+            <div>
+              @if (editForm.get('teamID')?.errors?.required) {
+                <small class="form-text text-danger">This field is required.</small>
+              }
+              @if (editForm.get('teamID')?.errors?.min) {
+                <small class="form-text text-danger">This field should be at least 0.</small>
+              }
+              <small class="form-text text-danger" [hidden]="!editForm.get('teamID')?.errors?.number">This field should be a number.</small>
+            </div>
+          }
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_appLink">App Link</label>
+          <input type="text" class="form-control" name="appLink" id="field_appLink" data-cy="appLink" formControlName="appLink" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_appDescription">App Description</label>
+          <textarea
+            class="form-control"
+            name="appDescription"
+            id="field_appDescription"
+            data-cy="appDescription"
+            formControlName="appDescription"
+          ></textarea>
+        </div>
+
+        @let logoPicRef = editForm.get('logoPic')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_logoPic">Logo Pic</label>
+          <div>
+            @if (logoPicRef.value) {
+              <img
+                [src]="'data:' + editForm.get('logoPicContentType')!.value + ';base64,' + logoPicRef.value"
+                style="max-height: 100px"
+                alt="teamProfile"
+              />
+            }
+            @if (logoPicRef.value) {
+              <div class="form-text text-danger clearfix">
+                <span class="pull-start">{{ editForm.get('logoPicContentType')!.value }}, {{ byteSize(logoPicRef.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="clearInputImage('logoPic', 'logoPicContentType', 'file_logoPic')"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input type="file" id="file_logoPic" data-cy="logoPic" (change)="setFileData($event, 'logoPic', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="logoPic" id="field_logoPic" data-cy="logoPic" formControlName="logoPic" />
+          <input
+            type="hidden"
+            class="form-control"
+            name="logoPicContentType"
+            id="field_logoPicContentType"
+            formControlName="logoPicContentType"
+          />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_nickName">Nick Name</label>
+          <input type="text" class="form-control" name="nickName" id="field_nickName" data-cy="nickName" formControlName="nickName" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_slogan">Slogan</label>
+          <input type="text" class="form-control" name="slogan" id="field_slogan" data-cy="slogan" formControlName="slogan" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_votes">Votes</label>
+          <input type="number" class="form-control" name="votes" id="field_votes" data-cy="votes" formControlName="votes" />
+        </div>
+
+        <div class="mb-3">
+          <label for="field_imageGalleries">Image Gallery</label>
+          <select
+            class="form-control"
+            id="field_imageGalleries"
+            data-cy="imageGallery"
+            multiple
+            name="imageGalleries"
+            formControlName="imageGalleries"
+            [compareWith]="compareScreenshot"
+          >
+            @for (screenshotOption of screenshotsSharedCollection; track $index) {
+              <option [ngValue]="screenshotOption">{{ screenshotOption.caption }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_members">Member</label>
+          <select
+            class="form-control"
+            id="field_members"
+            data-cy="member"
+            multiple
+            name="members"
+            formControlName="members"
+            [compareWith]="compareUserProfile"
+          >
+            @for (userProfileOption of userProfilesSharedCollection; track $index) {
+              <option [ngValue]="userProfileOption">{{ userProfileOption.uobUsername }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

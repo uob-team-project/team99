@@ -1,0 +1,175 @@
+<div>
+  <h2 id="page-heading" data-cy="TeamProfileHeading">
+    <span>List of Teams</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span>Refresh list</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-team-profile"
+        [routerLink]="['/team-profile/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span>Create a new Team Profile</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (teamProfiles?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span>No Team Profiles found</span>
+    </div>
+  }
+
+  @if (teamProfiles && teamProfiles.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="id">
+              <div class="d-flex">
+                <span>ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="teamID">
+              <div class="d-flex">
+                <span>Team ID</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="appLink">
+              <div class="d-flex">
+                <span>App Link</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="appDescription">
+              <div class="d-flex">
+                <span>App Description</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="logoPic">
+              <div class="d-flex">
+                <span>Logo Pic</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="nickName">
+              <div class="d-flex">
+                <span>Nick Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="slogan">
+              <div class="d-flex">
+                <span>Slogan</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="votes">
+              <div class="d-flex">
+                <span>Votes</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="imageGallery.caption">
+              <div class="d-flex">
+                <span>Image Gallery</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="member.uobUsername">
+              <div class="d-flex">
+                <span>Member</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+        </tbody>
+      </table>
+
+      @for (teamProfile of teamProfiles; track trackId(teamProfile)) {
+        <div data-cy="entityTable">
+
+          @if (teamProfile.logoPic) {
+            <div>
+              <a (click)="openFile(teamProfile.logoPic ?? '', teamProfile.logoPicContentType)">
+                <img
+                  [src]="'data:' + teamProfile.logoPicContentType + ';base64,' + teamProfile.logoPic"
+                  style="max-width: 200px"
+                  alt="teamProfile"
+                />
+              </a>
+            </div>
+          } @else {
+          <div>
+            <img src="content/images/jhipster_family_member_3_head-192.png" alt="No Image Available" style="max-width: 200px; max-height: 200px" />
+          </div>
+          }
+
+
+          <div class="content-container">
+            <h1> Team {{ teamProfile.teamID }} {{ teamProfile.nickName }}</h1>
+            <div class="app-description">{{ teamProfile.appDescription }}</div>
+            <div class="app-link">
+              <a href="{{ teamProfile.appLink }}" target="_blank">{{ teamProfile.appLink }}</a>
+            </div>
+          </div>
+          <div>
+            @for (teamMembers of teamProfile.members; track $index; let last = $last) {
+              <span>
+      <a class="form-control-static" [routerLink]="['/user-profile', teamMembers.id, 'view']">{{ teamMembers.id }}</a
+      >{{ last ? '' : ', ' }}
+    </span>
+            }
+          </div>
+          @if (account() != null) {
+          <!-- this is the button view -->
+          <div class="text-end">
+            <div class="btn-group">
+              <a [routerLink]="['/team-profile', teamProfile.id, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                <fa-icon icon="eye"></fa-icon>
+                <span class="d-none d-md-inline">View</span>
+              </a>
+              <!-- this is the button edit -->
+              <a [routerLink]="['/team-profile', teamProfile.id, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                <fa-icon icon="pencil-alt"></fa-icon>
+                <span class="d-none d-md-inline">Edit</span>
+              </a>
+              <!-- this is the button delete-->
+              <button type="submit" (click)="delete(teamProfile)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                <fa-icon icon="times"></fa-icon>
+                <span class="d-none d-md-inline">Delete</span>
+              </button>
+            </div>
+          </div>
+          }
+        </div>
+      }
+
+
+    </div>
+  }
+</div>

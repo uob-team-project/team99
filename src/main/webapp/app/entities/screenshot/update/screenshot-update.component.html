@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-screenshot-heading" data-cy="ScreenshotCreateUpdateHeading">Create or edit a Screenshot</h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.id.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_id">ID</label>
+            <input type="number" class="form-control" name="id" id="field_id" data-cy="id" formControlName="id" [readonly]="true" />
+          </div>
+        }
+
+        @let picRef = editForm.get('pic')!;
+        <div class="mb-3">
+          <label class="form-label" for="field_pic">Pic</label>
+          <div>
+            @if (picRef.value) {
+              <img
+                [src]="'data:' + editForm.get('picContentType')!.value + ';base64,' + picRef.value"
+                style="max-height: 100px"
+                alt="screenshot"
+              />
+            }
+            @if (picRef.value) {
+              <div class="form-text text-danger clearfix">
+                <span class="pull-start">{{ editForm.get('picContentType')!.value }}, {{ byteSize(picRef.value!) }}</span>
+                <button
+                  type="button"
+                  (click)="clearInputImage('pic', 'picContentType', 'file_pic')"
+                  class="btn btn-secondary btn-xs pull-end"
+                >
+                  <fa-icon icon="times"></fa-icon>
+                </button>
+              </div>
+            }
+            <input type="file" id="file_pic" data-cy="pic" (change)="setFileData($event, 'pic', true)" accept="image/*" />
+          </div>
+          <input type="hidden" class="form-control" name="pic" id="field_pic" data-cy="pic" formControlName="pic" />
+          <input type="hidden" class="form-control" name="picContentType" id="field_picContentType" formControlName="picContentType" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_caption">Caption</label>
+          <input type="text" class="form-control" name="caption" id="field_caption" data-cy="caption" formControlName="caption" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_milestone">Milestone</label>
+          <select class="form-control" name="milestone" formControlName="milestone" id="field_milestone" data-cy="milestone">
+            <option [ngValue]="null"></option>
+            @for (milestone of milestoneValues; track $index) {
+              <option [value]="milestone">
+                {{ { null: '', M1: 'milestoneOne', M2: 'milestoneTwo', M3: 'milestoneThree' }[milestone] }}
+              </option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_teamProfiles">Team Profile</label>
+          <select
+            class="form-control"
+            id="field_teamProfiles"
+            data-cy="teamProfile"
+            multiple
+            name="teamProfiles"
+            formControlName="teamProfiles"
+            [compareWith]="compareTeamProfile"
+          >
+            @for (teamProfileOption of teamProfilesSharedCollection; track $index) {
+              <option [ngValue]="teamProfileOption">{{ teamProfileOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span>Cancel</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span>Save</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

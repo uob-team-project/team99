@@ -50,6 +50,13 @@ public class CacheConfiguration {
             createCache(cm, bham.team.domain.User.class.getName());
             createCache(cm, bham.team.domain.Authority.class.getName());
             createCache(cm, bham.team.domain.User.class.getName() + ".authorities");
+            createCache(cm, bham.team.domain.UserProfile.class.getName());
+            createCache(cm, bham.team.domain.UserProfile.class.getName() + ".teams");
+            createCache(cm, bham.team.domain.TeamProfile.class.getName());
+            createCache(cm, bham.team.domain.TeamProfile.class.getName() + ".imageGalleries");
+            createCache(cm, bham.team.domain.TeamProfile.class.getName() + ".members");
+            createCache(cm, bham.team.domain.Screenshot.class.getName());
+            createCache(cm, bham.team.domain.Screenshot.class.getName() + ".teamProfiles");
             // jhipster-needle-ehcache-add-entry
         };
     }

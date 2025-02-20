@@ -7,6 +7,120 @@
 Bootstrap tweaks
 ===============================================================*/
 
+.mini-card {
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 10px;
+  width: 300px;
+  transition: box-shadow 0.3s ease;
+}
+
+.mini-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+.mini-card h2 span {
+  font-size: 18px;
+}
+
+.mini-card dl.row-md {
+  margin-top: 10px;
+}
+
+.mini-card dt {
+  margin-top: 5px;
+}
+
+.mini-card dd {
+  margin-bottom: 10px;
+}
+
+.mini-card a {
+  text-decoration: none;
+}
+
+.mini-card a:hover {
+  text-decoration: underline;
+}
+
+/* Container for each team profile */
+.table-entities > div {
+  display: flex;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+  margin-bottom: 1rem;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+}
+
+/* Image container on the left */
+.table-entities > div > .img-container {
+  flex: 0 0 150px; /* Fixed width for image container */
+  max-width: 150px; /* Ensure it doesn't exceed 150px */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #f8f9fa; /* Light background for image container */
+  margin-right: 10px; /* Space between image and text */
+}
+
+/* Image styling */
+.table-entities > div > .img-container img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: cover; /* Ensure image covers container */
+}
+
+/* Content container on the right */
+.table-entities > div > .content-container {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* Heading style */
+.table-entities > div > .content-container h1 {
+  font-size: 1.5rem;
+  margin: 0;
+  text-align: left; /* Align the heading to the left */
+  color: #333;
+}
+
+/* Description style */
+.table-entities > div > .content-container .app-description {
+  margin: 0.5rem 0;
+  color: #666;
+  text-align: left; /* Align the description to the left */
+}
+
+/* App link style */
+.table-entities > div > .content-container .app-link a {
+  color: #007bff;
+  text-decoration: none;
+  display: block; /* Make it block-level for better alignment */
+  margin: 0.5rem 0;
+}
+
+.table-entities > div > .content-container .app-link a:hover {
+  text-decoration: underline;
+}
+
+/* Button group style */
+.table-entities > div > .content-container .card-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+}
+
+.table-entities > div > .content-container .card-actions .btn {
+  margin-left: 0.5rem;
+}
+
 body,
 h1,
 h2,

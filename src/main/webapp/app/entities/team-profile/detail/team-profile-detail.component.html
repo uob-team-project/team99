@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (teamProfile(); as teamProfileRef) {
+      <div>
+        <div class="mini-card">
+
+          <dd>
+            @if (teamProfileRef.logoPic) {
+              <div>
+                <a (click)="openFile(teamProfileRef.logoPic ?? '', teamProfileRef.logoPicContentType)">
+                  <img
+                    [src]="'data:' + teamProfileRef.logoPicContentType + ';base64,' + teamProfileRef.logoPic"
+                    style="max-width: 50%"
+                    alt="teamProfile"
+                  />
+                </a>
+              </div>
+            }
+          </dd>
+
+        <h2 data-cy="teamProfileDetailsHeading"><span>Team {{ teamProfileRef.teamID }}</span> <br> <i>{{ teamProfileRef.nickName }}</i> <br>- '{{ teamProfileRef.slogan }}'</h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dd>
+            <span><a href="{{ teamProfileRef.appLink }}">link</a></span>
+          </dd>
+
+          <dd>
+            <span>{{ teamProfileRef.appDescription }}</span>
+          </dd>
+
+
+
+
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span>Back</span>
+        </button>
+
+        <button type="button" [routerLink]="['/team-profile', teamProfileRef.id, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span>Edit</span>
+        </button>
+
+        </div>
+      </div>
+    }
+  </div>
+</div>

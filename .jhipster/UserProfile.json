@@ -1,0 +1,40 @@
+{
+  "annotations": {
+    "changelogDate": "20250211141119"
+  },
+  "applications": "*",
+  "fields": [
+    {
+      "fieldName": "uobUsername",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "nickName",
+      "fieldType": "String"
+    },
+    {
+      "fieldName": "profilePic",
+      "fieldType": "ImageBlob"
+    }
+  ],
+  "name": "UserProfile",
+  "relationships": [
+    {
+      "otherEntityName": "user",
+      "otherEntityRelationshipName": "userProfile",
+      "relationshipName": "user",
+      "relationshipSide": "left",
+      "relationshipType": "one-to-one",
+      "relationshipWithBuiltInEntity": true
+    },
+    {
+      "otherEntityField": "teamID",
+      "otherEntityName": "teamProfile",
+      "otherEntityRelationshipName": "member",
+      "relationshipName": "team",
+      "relationshipSide": "left",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no"
+}
