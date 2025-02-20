@@ -15,7 +15,6 @@ eval $(cat ~/team-project/.env)
 echo "the app deployment script is pulling the docker image"
 docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
 docker pull ${CI_REGISTRY_IMAGE}:${CI_COMMIT_TAG}
-docker pull ${CI_REGISTRY_IMAGE}:latest
 
 echo "the app deployment script is configuring the development docker compose script"
 sed -i "4s|teamproject|${CI_REGISTRY_IMAGE}|" ~/team-project/dev.yml
