@@ -74,7 +74,11 @@ jobs:
             -Djib.to.auth.username=${{ github.actor }} \
             -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }} \
             -Djib.to.image=ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:${{ github.sha }} \
-            -Djib.to.tags=latest \
+            -Dmaven.repo.local=$MAVEN_USER_HOME          
+          ./mvnw -ntp clean compile jib:build -DskipTests -Pprod \
+            -Djib.to.auth.username=${{ github.actor }} \
+            -Djib.to.auth.password=${{ secrets.GITHUB_TOKEN }} \
+            -Djib.to.image=ghcr.io/${{ github.repository_owner }}/${{ github.repository }}:latest \
             -Dmaven.repo.local=$MAVEN_USER_HOME
         env:
           MAVEN_USER_HOME: ~/.m2/repository
